@@ -9,14 +9,20 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 public class Consumer {
-    int port = 8080;
+    int port = 8111;
 
     Consumer() {
         System.out.println("Default port: " + port);
     }
 
+    Consumer(int port) {
+        this.port = port;
+        System.out.println("Port: " + port);
+    }
+
+
     public static void main(String[] args) {
-        Integer eta = new Consumer().getEta("station", "222");
+        Integer eta = new Consumer().getEta("HammerSmith", "613");
         System.out.println("ETA: " + eta);
     }
 
