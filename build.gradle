@@ -8,13 +8,6 @@ allprojects {
 }
 
 
-subprojects {
-    apply plugin: "java"
-    repositories {
-        mavenCentral()
-    }
-}
-
 project(':bs') {
     version '1.0.0'
 }
