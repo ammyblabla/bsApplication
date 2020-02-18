@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.bs;
 
 
 import au.com.dius.pact.provider.junit.Provider;
@@ -7,7 +7,6 @@ import au.com.dius.pact.provider.junit.State;
 import au.com.dius.pact.provider.junit.loader.PactFolder;
 import au.com.dius.pact.provider.junit.target.TestTarget;
 import au.com.dius.pact.provider.spring.target.MockMvcTarget;
-import com.example.bs.BusController;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.bs;
 
 import au.com.dius.pact.provider.junit.PactRunner;
 import au.com.dius.pact.provider.junit.Provider;

@@ -19,7 +19,7 @@
                 },
                 "body": {
                     "eta": 4,
-                    "nr": 613,
+                    "nr": "613",
                     "station": "HammerSmith"
                 },
                 "matchingRules": {

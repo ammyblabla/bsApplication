@@ -16,12 +16,12 @@ import java.util.Map;
 
 import static org.junit.Assert.assertTrue;
 
+
 public class ConsumerTest {
-    int port = 8080;
+    int port = 8111;
 
     @Rule
     public PactProviderRuleMk2 mockProvider = new PactProviderRuleMk2("BusService", "localhost", port, this);
-
 
 
     @Pact(consumer = "BusServiceClient")
