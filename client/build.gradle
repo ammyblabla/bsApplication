@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.2.4.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
+    id "au.com.dius.pact" version "4.0.5"
 }
 
 group = 'com.example'
@@ -30,11 +31,15 @@ dependencies {
     compile group: 'org.apache.httpcomponents', name: 'fluent-hc', version: '4.5.1'
 
     compile group: 'org.json', name: 'json', version: '20190722'
-    compile group: 'au.com.dius', name: 'pact-consumer-jvm_2.10', version: '1.0'
-    compile group: 'au.com.dius', name: 'pact-jvm-consumer-junit_2.11', version: '3.5.0'
 
-//    compile group: 'au.com.dius', name: 'pact-jvm-consumer-junit', version: '4.0.5'
+    compile group: 'au.com.dius', name: 'pact-jvm-consumer-junit', version: '4.0.5'
+}
 
+pact {
+    publish {
+        pactDirectory = '/pacts/dir'
+        pactBrokerUrl = 'http://localhost:8115'
+    }
 }
 
 

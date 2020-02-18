@@ -1,12 +1,12 @@
 package com.example.client;
 
-import au.com.dius.pact.consumer.Pact;
-import au.com.dius.pact.consumer.PactProviderRuleMk2;
-import au.com.dius.pact.consumer.PactVerification;
 import au.com.dius.pact.consumer.dsl.DslPart;
 import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
-import au.com.dius.pact.model.RequestResponsePact;
+import au.com.dius.pact.consumer.junit.PactProviderRule;
+import au.com.dius.pact.consumer.junit.PactVerification;
+import au.com.dius.pact.core.model.RequestResponsePact;
+import au.com.dius.pact.core.model.annotations.Pact;
 import org.junit.Rule;
 import org.junit.Test;
 import org.springframework.http.MediaType;
@@ -21,7 +21,7 @@ public class ConsumerTest {
     int port = 8111;
 
     @Rule
-    public PactProviderRuleMk2 mockProvider = new PactProviderRuleMk2("BusService", "localhost", port, this);
+    public PactProviderRule provider = new PactProviderRule("BusService", "localhost", port, this);
 
 
     @Pact(consumer = "BusServiceClient")
@@ -47,10 +47,10 @@ public class ConsumerTest {
     }
 
     @Test
-    @PactVerification()
+    @PactVerification("BusService")
     public void doTest() {
         System.setProperty("pact.rootDir","../pacts");
-        Integer eta = new Consumer(mockProvider.getPort()).getEta("HammerSmith", "613");
+        Integer eta = new Consumer(provider.getPort()).getEta("HammerSmith", "613");
         System.out.println("According to test eta = " + eta);
         assertTrue(eta >= 0);
     }
