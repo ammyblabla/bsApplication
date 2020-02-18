@@ -25,8 +25,11 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+    compile group: 'au.com.dius', name: 'pact-jvm-provider-spring', version: '4.0.5'
+
 }
 
 test {
     useJUnitPlatform()
+    systemProperties['pact.rootDir'] = "../pacts"
 }

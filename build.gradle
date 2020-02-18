@@ -1,11 +1,21 @@
-allprojects { apply plugin: "idea" }
-subprojects {
-    apply plugin: "java"
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+
     repositories {
         mavenCentral()
     }
 }
+subprojects {
+    apply plugin: "java"
+    apply plugin: 'idea'
+    repositories {
+        mavenCentral()
+    }
+}
+
 project(':bs') {
+
 }
 project(':client') {
 }

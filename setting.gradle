@@ -1,1 +1,1 @@
-include ":bs", ":client"
+include "bs", "client", "demo"
