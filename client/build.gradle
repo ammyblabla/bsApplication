@@ -31,13 +31,12 @@ dependencies {
     compile group: 'org.apache.httpcomponents', name: 'fluent-hc', version: '4.5.1'
 
     compile group: 'org.json', name: 'json', version: '20190722'
-
     compile group: 'au.com.dius', name: 'pact-jvm-consumer-junit', version: '4.0.5'
 }
 
 pact {
     publish {
-        pactDirectory = "$rootDir/pacts"
+        pactDirectory = "$rootDir/client/target/pacts"
         pactBrokerUrl = 'http://localhost:8115'
     }
 }
@@ -45,5 +44,4 @@ pact {
 
 test {
     useJUnitPlatform()
-    systemProperties['pact.rootDir'] = "$rootDir/pacts"
 }

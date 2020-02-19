@@ -31,7 +31,7 @@ public class ConsumerTest {
 
         DslPart etaResults = new PactDslJsonBody()
             .stringType("station", "HammerSmith")
-            .stringType("nr", "613")
+            .integerType("nr", 613)
             .integerType("eta", new Integer(4))
             .asBody();
 
@@ -49,8 +49,7 @@ public class ConsumerTest {
     @Test
     @PactVerification("BusService")
     public void doTest() {
-        System.setProperty("pact.rootDir","../pacts");
-        Integer eta = new Consumer(provider.getPort()).getEta("HammerSmith", "613");
+        Integer eta = new Consumer(provider.getPort()).getEta("HammerSmith", 613);
         System.out.println("According to test eta = " + eta);
         assertTrue(eta >= 0);
     }
