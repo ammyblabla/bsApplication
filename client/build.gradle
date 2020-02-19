@@ -37,7 +37,7 @@ dependencies {
 
 pact {
     publish {
-        pactDirectory = '/pacts/dir'
+        pactDirectory = "$rootDir/pacts"
         pactBrokerUrl = 'http://localhost:8115'
     }
 }
@@ -45,4 +45,5 @@ pact {
 
 test {
     useJUnitPlatform()
+    systemProperties['pact.rootDir'] = "$rootDir/pacts"
 }
