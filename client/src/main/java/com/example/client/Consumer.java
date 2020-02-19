@@ -22,11 +22,11 @@ public class Consumer {
 
 
     public static void main(String[] args) {
-        Integer eta = new Consumer().getEta("HammerSmith", "613");
+        Integer eta = new Consumer().getEta("HammerSmith", 613);
         System.out.println("ETA: " + eta);
     }
 
-    public Integer getEta(String station, String nr) {
+    public Integer getEta(String station, int nr) {
         try {
             String url = String.format("http://localhost:%d/bus/%s/%s",port, station, nr);
             System.out.println("Using url: " + url);

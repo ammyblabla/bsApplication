@@ -1,0 +1,5 @@
+server:
+  port: 8111
+pactbroker:
+  host: "localhost"
+  port: "8115"

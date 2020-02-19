@@ -2,6 +2,7 @@ package com.example.bs;
 
 import au.com.dius.pact.provider.junit.Provider;
 import au.com.dius.pact.provider.junit.State;
+import au.com.dius.pact.provider.junit.loader.PactBroker;
 import au.com.dius.pact.provider.junit.loader.PactFolder;
 import au.com.dius.pact.provider.junit.target.HttpTarget;
 import au.com.dius.pact.provider.junit.target.Target;
@@ -12,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @RunWith(SpringMessagePactRunner.class)
 @Provider("BusService")
-@PactFolder("pacts")
+@PactBroker(host = "localhost", port="8115")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class ProviderMessageTest {
     @TestTarget
