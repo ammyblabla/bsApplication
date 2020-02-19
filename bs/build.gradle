@@ -26,6 +26,9 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
     compile 'au.com.dius:pact-jvm-provider-spring:4.0.5'
+    compile 'com.azure:azure-messaging-eventhubs:5.0.2'
+
+
 
 }
 

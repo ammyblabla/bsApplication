@@ -1,0 +1,102 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "namespaces_bus_application_name": {
+            "defaultValue": "bus-application",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.EventHub/namespaces",
+            "apiVersion": "2018-01-01-preview",
+            "name": "[parameters('namespaces_bus_application_name')]",
+            "location": "Southeast Asia",
+            "tags": {
+                "ENV": "DEV"
+            },
+            "sku": {
+                "name": "Basic",
+                "tier": "Basic",
+                "capacity": 1
+            },
+            "properties": {
+                "zoneRedundant": false,
+                "isAutoInflateEnabled": false,
+                "maximumThroughputUnits": 0,
+                "kafkaEnabled": false
+            }
+        },
+        {
+            "type": "Microsoft.EventHub/namespaces/AuthorizationRules",
+            "apiVersion": "2017-04-01",
+            "name": "[concat(parameters('namespaces_bus_application_name'), '/bsProvider')]",
+            "location": "Southeast Asia",
+            "dependsOn": [
+                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_bus_application_name'))]"
+            ],
+            "properties": {
+                "rights": [
+                    "Send"
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.EventHub/namespaces/AuthorizationRules",
+            "apiVersion": "2017-04-01",
+            "name": "[concat(parameters('namespaces_bus_application_name'), '/RootManageSharedAccessKey')]",
+            "location": "Southeast Asia",
+            "dependsOn": [
+                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_bus_application_name'))]"
+            ],
+            "properties": {
+                "rights": [
+                    "Listen",
+                    "Manage",
+                    "Send"
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.EventHub/namespaces/eventhubs",
+            "apiVersion": "2017-04-01",
+            "name": "[concat(parameters('namespaces_bus_application_name'), '/bus')]",
+            "location": "Southeast Asia",
+            "dependsOn": [
+                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_bus_application_name'))]"
+            ],
+            "properties": {
+                "messageRetentionInDays": 1,
+                "partitionCount": 2,
+                "status": "Active"
+            }
+        },
+        {
+            "type": "Microsoft.EventHub/namespaces/networkRuleSets",
+            "apiVersion": "2018-01-01-preview",
+            "name": "[concat(parameters('namespaces_bus_application_name'), '/default')]",
+            "location": "Southeast Asia",
+            "dependsOn": [
+                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_bus_application_name'))]"
+            ],
+            "properties": {
+                "defaultAction": "Deny",
+                "virtualNetworkRules": [],
+                "ipRules": []
+            }
+        },
+        {
+            "type": "Microsoft.EventHub/namespaces/eventhubs/consumergroups",
+            "apiVersion": "2017-04-01",
+            "name": "[concat(parameters('namespaces_bus_application_name'), '/bus/$Default')]",
+            "location": "Southeast Asia",
+            "dependsOn": [
+                "[resourceId('Microsoft.EventHub/namespaces/eventhubs', parameters('namespaces_bus_application_name'), 'bus')]",
+                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_bus_application_name'))]"
+            ],
+            "properties": {}
+        }
+    ]
+}
