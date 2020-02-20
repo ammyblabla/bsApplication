@@ -32,6 +32,7 @@ dependencies {
 
     compile 'org.json:json:20190722'
     compile 'au.com.dius:pact-jvm-consumer-junit:4.0.5'
+    compile 'com.microsoft.azure:azure-eventhubs-eph:3.0.2'
 }
 
 pact {
