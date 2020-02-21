@@ -2,15 +2,11 @@ package com.example.bs;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.microsoft.azure.eventhubs.ConnectionStringBuilder;
-import com.microsoft.azure.eventhubs.EventData;
-import com.microsoft.azure.eventhubs.EventHubClient;
-import com.microsoft.azure.eventhubs.EventHubException;
+import com.microsoft.azure.eventhubs.*;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.time.Instant;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -20,7 +16,7 @@ public class BsEventHubSender {
                 .setNamespaceName("bus-application")
                 .setEventHubName("bus")
                 .setSasKeyName("bsProvider")
-                .setSasKey("lYj89w09GfKFBgcm3d4pdWHtytRGsnbYMp13TCU9JGs=");
+                .setSasKey("dvZFFWy8L5/TXbB7H8C+/leGbWolh5ZO6C47LlNT2M8=");
 
 
         final Gson gson = new GsonBuilder().create();
@@ -31,6 +27,8 @@ public class BsEventHubSender {
             for (int i = 0; i < 100; i++) {
 
                 String payload = "Message " + i;
+//                BusDto payload = new BusDto("station", 3, 4);
+
                 byte[] payloadBytes = gson.toJson(payload).getBytes(Charset.defaultCharset());
                 EventData sendEvent = EventData.create(payloadBytes);
 

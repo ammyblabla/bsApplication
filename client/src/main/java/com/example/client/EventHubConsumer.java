@@ -27,9 +27,9 @@ public class EventHubConsumer
         String namespaceName = "bus-application";
         String eventHubName = "bus";
         String sasKeyName = "RootManageSharedAccessKey";
-        String sasKey = "Kte0f65Znapw6rufGte/ASKK/u4qID6xv4wq9FeAUF8=";
-        String storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=busapplication;AccountKey=+mf9DKlzZYr+gqqYL9GRH+v4mKI8/sjaVKbfbltubhvGI59WXdT8QabhwkMAEpXgiHy52QwoBxj0hxlfDXBHNA==;EndpointSuffix=core.windows.net";
-        String storageContainerName = "message";
+        String sasKey = "KJ4WpqZcFN7DkSHHuz/4oKIKz+4t2V9Yq/rQnutRA48=";
+        String storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=busapplication;AccountKey=hqhgXB9jRNFjRUGKo6M7t/2ctLtcSkCXFMn3hTr24Y4P9AiYYMAYZfoMAOSsTi7n8L/3b3MBQasNUAPYBxuHzw==;EndpointSuffix=core.windows.net";
+        String storageContainerName = "buscontainer";
         String hostNamePrefix = "busapplication";
 
         // To conveniently construct the Event Hub connection string from the raw information, use the ConnectionStringBuilder class.
