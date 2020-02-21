@@ -26,8 +26,8 @@ public class BsEventHubSender {
         try {
             for (int i = 0; i < 100; i++) {
 
-                String payload = "Message " + i;
-//                BusDto payload = new BusDto("station", 3, 4);
+//                String payload = "Message " + i;
+                BusDto payload = new BusDto("station", 3, 4);
 
                 byte[] payloadBytes = gson.toJson(payload).getBytes(Charset.defaultCharset());
                 EventData sendEvent = EventData.create(payloadBytes);
