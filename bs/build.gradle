@@ -27,6 +27,8 @@ dependencies {
     }
     compile 'au.com.dius:pact-jvm-provider-spring:4.0.5'
     compile 'com.microsoft.azure:azure-eventhubs-eph:3.0.2'
+    compile "org.springframework.boot:spring-boot-configuration-processor"
+
 
 
 

@@ -1,6 +1,7 @@
 package com.example.bs;
 
 import com.microsoft.azure.eventhubs.EventHubException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,9 @@ import java.util.Random;
 
 @RestController
 public class BusController {
+    @Autowired
+    BsEventHubSender bsEventHubSender;
+
     @RequestMapping("/bus/{station}/{nr}")
     public BusDto sendBusToApi(@PathVariable String station, @PathVariable int nr) {
         int eta = getEtaBasedOnGpsAndOtherAdvancedStuff();
@@ -26,14 +30,20 @@ public class BusController {
     }
 
     @RequestMapping("/eventhub/{station}/{nr}")
-    public void sendBusToEventHub(@PathVariable String station, @PathVariable int nr) throws IOException, EventHubException {
+    public BusDto sendBusToEventHub(@PathVariable String station, @PathVariable int nr) throws IOException, EventHubException {
         int eta = getEtaBasedOnGpsAndOtherAdvancedStuff();
         BusDto bus = new BusDto(station, nr, eta);
-        BsEventHubSender bsEventHubSender = new BsEventHubSender();
-        try {
-            bsEventHubSender.sendData(bus);
-        } finally {
-            bsEventHubSender.endConnection();
-        }
+        bsEventHubSender.sendData(bus);
+        return bus;
+    }
+
+    @RequestMapping("/eventhub/start")
+    public void startConnection() throws IOException, EventHubException {
+        bsEventHubSender.startConnection();
+    }
+
+    @RequestMapping("eventHub/stop")
+    public void stopConnection() throws EventHubException {
+        bsEventHubSender.endConnection();
     }
 }

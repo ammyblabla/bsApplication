@@ -6,25 +6,34 @@ import com.microsoft.azure.eventhubs.ConnectionStringBuilder;
 import com.microsoft.azure.eventhubs.EventData;
 import com.microsoft.azure.eventhubs.EventHubClient;
 import com.microsoft.azure.eventhubs.EventHubException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
+@Component
 public class BsEventHubSender {
+    @Autowired
+    EventHubConfiguration eventHubConfiguration;
+
     private EventHubClient ehClient;
     private ScheduledExecutorService executorService;
     private ConnectionStringBuilder connStr;
 
-    public BsEventHubSender() throws IOException, EventHubException {
+    public void startConnection() throws IOException, EventHubException {
+        System.out.println("namespace");
+        System.out.println(eventHubConfiguration.getName());
         connStr = new ConnectionStringBuilder()
-                .setNamespaceName("bus-application")
-                .setEventHubName("bus")
-                .setSasKeyName("bsProvider")
-                .setSasKey("dvZFFWy8L5/TXbB7H8C+/leGbWolh5ZO6C47LlNT2M8=");
+                .setNamespaceName(eventHubConfiguration.getNamespace())
+                .setEventHubName(eventHubConfiguration.getName())
+                .setSasKeyName(eventHubConfiguration.getSasKeyName())
+                .setSasKey(eventHubConfiguration.getSasKey());
         executorService = Executors.newScheduledThreadPool(4);
         ehClient = EventHubClient.createFromConnectionStringSync(connStr.toString(), executorService);
+
     }
 
     public void endConnection() throws EventHubException {

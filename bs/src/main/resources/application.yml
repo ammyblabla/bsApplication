@@ -3,4 +3,9 @@ pactbroker:
   port: "8115"
 server:
   port: 8111
+eventhub:
+  namespace: "bus-application"
+  name: "bus"
+  sasKeyName: "bsProvider"
+  sasKey: "Endpoint=sb://bus-application.servicebus.windows.net/;SharedAccessKeyName=bsProvider;SharedAccessKey=55BwCuW/PqHqkLEYMUiTCYYtO+eWUIL690GxRnGS57U="
 
