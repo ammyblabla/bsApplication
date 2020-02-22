@@ -1,24 +1,10 @@
 {
-    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "location": {
+        "storageAccounts_busapplication_name": {
+            "defaultValue": "busapplication",
             "type": "String"
-        },
-        "storageAccountName": {
-            "type": "String"
-        },
-        "accountType": {
-            "type": "String"
-        },
-        "kind": {
-            "type": "String"
-        },
-        "accessTier": {
-            "type": "String"
-        },
-        "supportsHttpsTrafficOnly": {
-            "type": "Bool"
         }
     },
     "variables": {},
@@ -26,19 +12,70 @@
         {
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2019-06-01",
-            "name": "[parameters('storageAccountName')]",
-            "location": "[parameters('location')]",
-            "dependsOn": [],
-            "tags": {},
-            "sku": {
-                "name": "[parameters('accountType')]"
+            "name": "[parameters('storageAccounts_busapplication_name')]",
+            "location": "southeastasia",
+            "tags": {
+                "ENV": "DEV"
             },
-            "kind": "[parameters('kind')]",
+            "sku": {
+                "name": "Standard_RAGRS",
+                "tier": "Standard"
+            },
+            "kind": "BlobStorage",
             "properties": {
-                "accessTier": "[parameters('accessTier')]",
-                "supportsHttpsTrafficOnly": "[parameters('supportsHttpsTrafficOnly')]"
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "virtualNetworkRules": [],
+                    "ipRules": [],
+                    "defaultAction": "Allow"
+                },
+                "supportsHttpsTrafficOnly": true,
+                "encryption": {
+                    "services": {
+                        "file": {
+                            "keyType": "Account",
+                            "enabled": true
+                        },
+                        "blob": {
+                            "keyType": "Account",
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                },
+                "accessTier": "Hot"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(parameters('storageAccounts_busapplication_name'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_busapplication_name'))]"
+            ],
+            "sku": {
+                "name": "Standard_RAGRS"
+            },
+            "properties": {
+                "cors": {
+                    "corsRules": []
+                },
+                "deleteRetentionPolicy": {
+                    "enabled": false
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(parameters('storageAccounts_busapplication_name'), '/default/buscontainer')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_busapplication_name'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_busapplication_name'))]"
+            ],
+            "properties": {
+                "publicAccess": "Container"
             }
         }
-    ],
-    "outputs": {}
+    ]
 }
