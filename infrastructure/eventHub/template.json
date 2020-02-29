@@ -26,7 +26,21 @@
                 "zoneRedundant": false,
                 "isAutoInflateEnabled": false,
                 "maximumThroughputUnits": 0,
-                "kafkaEnabled": false
+                "kafkaEnabled": true
+            }
+        },
+        {
+            "type": "Microsoft.EventHub/namespaces/AuthorizationRules",
+            "apiVersion": "2017-04-01",
+            "name": "[concat(parameters('namespaces_bus_application_name'), '/bsConsumer')]",
+            "location": "Southeast Asia",
+            "dependsOn": [
+                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_bus_application_name'))]"
+            ],
+            "properties": {
+                "rights": [
+                    "Listen"
+                ]
             }
         },
         {
@@ -40,21 +54,6 @@
             "properties": {
                 "rights": [
                     "Send"
-                ]
-            }
-        },
-        {
-            "type": "Microsoft.EventHub/namespaces/AuthorizationRules",
-            "apiVersion": "2017-04-01",
-            "name": "[concat(parameters('namespaces_bus_application_name'), '/bsConsumer')]",
-
-            "location": "Southeast Asia",
-            "dependsOn": [
-                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_bus_application_name'))]"
-            ],
-            "properties": {
-                "rights": [
-                    "Listen"
                 ]
             }
         },
@@ -106,6 +105,17 @@
             "type": "Microsoft.EventHub/namespaces/eventhubs/consumergroups",
             "apiVersion": "2017-04-01",
             "name": "[concat(parameters('namespaces_bus_application_name'), '/bus/$Default')]",
+            "location": "Southeast Asia",
+            "dependsOn": [
+                "[resourceId('Microsoft.EventHub/namespaces/eventhubs', parameters('namespaces_bus_application_name'), 'bus')]",
+                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_bus_application_name'))]"
+            ],
+            "properties": {}
+        },
+        {
+            "type": "Microsoft.EventHub/namespaces/eventhubs/consumergroups",
+            "apiVersion": "2017-04-01",
+            "name": "[concat(parameters('namespaces_bus_application_name'), '/bus/busapplication')]",
             "location": "Southeast Asia",
             "dependsOn": [
                 "[resourceId('Microsoft.EventHub/namespaces/eventhubs', parameters('namespaces_bus_application_name'), 'bus')]",
