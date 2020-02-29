@@ -34,4 +34,13 @@ public class BusDto {
     public void setEta(int eta) {
         this.eta = eta;
     }
+
+    @Override
+    public String toString() {
+        return "BusDto{" +
+                "station='" + station + '\'' +
+                ", nr=" + nr +
+                ", eta=" + eta +
+                '}';
+    }
 }

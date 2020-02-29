@@ -33,7 +33,6 @@ public class BsEventHubSender {
                 .setSasKey(eventHubConfiguration.getSasKey());
         executorService = Executors.newScheduledThreadPool(4);
         ehClient = EventHubClient.createFromConnectionStringSync(connStr.toString(), executorService);
-
     }
 
     public void endConnection() throws EventHubException {
@@ -47,7 +46,7 @@ public class BsEventHubSender {
         EventData sendEvent = EventData.create(payloadBytes);
 
         this.ehClient.sendSync(sendEvent);
-        System.out.println(payload);
+        System.out.println(payload.toString());
 
     }
 }

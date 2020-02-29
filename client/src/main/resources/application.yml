@@ -1,0 +1,10 @@
+eventhub:
+  namespace: "bus-application"
+  name: "bus"
+  sasKeyName: "bsConsumer"
+  sasKey: "nzjDJ6TV9YRShiduNJaIe11kZNXUDQRU/2FpPTY1DR8="
+  storageConnectionString: "DefaultEndpointsProtocol=https;AccountName=busapplication;AccountKey=MGRsUVED9U5nrEqMTc3WF2mQVk1XlO22fMnQ/16XEZbHc537cDKiZzUFHyfw+CpIaebaFtGPM0Yyg0+rOMN+eg==;EndpointSuffix=core.windows.net"
+  storageContainerName: "buscontainer"
+  hostNamePrefix: "busapplication"
+  consumerGroup: "busApplication"
+

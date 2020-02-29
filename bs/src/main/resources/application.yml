@@ -7,5 +7,4 @@ eventhub:
   namespace: "bus-application"
   name: "bus"
   sasKeyName: "bsProvider"
-  sasKey: "Endpoint=sb://bus-application.servicebus.windows.net/;SharedAccessKeyName=bsProvider;SharedAccessKey=55BwCuW/PqHqkLEYMUiTCYYtO+eWUIL690GxRnGS57U="
-
+  sasKey: "Endpoint=sb://bus-application.servicebus.windows.net/;SharedAccessKeyName=bsProvider;SharedAccessKey=mgy1S+Fsu20DhimBaVOM68Sri9ELSjX4kj0gcTGTWS0="
